@@ -23,7 +23,7 @@ async def get_info(page, link):
 
 async def get_current_page(filename):
     try:
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf8') as file:
             data = json.load(file)
             list_data = data['list']
 
@@ -34,7 +34,7 @@ async def get_current_page(filename):
 
 async def write_to_json(filename, list_data, contents):
     try:
-        with open(filename, 'r') as file:
+        with open(filename, 'r', encoding='utf8') as file:
             data = json.load(file)
 
         data['list'].extend(list_data)
@@ -42,8 +42,8 @@ async def write_to_json(filename, list_data, contents):
     except FileNotFoundError:
         data = {'list': list_data, 'contents': contents}
 
-    with open(filename, 'w') as file:
-        json.dump(data, file, indent=4)
+    with open(filename, 'w', encoding='utf8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
 
 
 async def main(number_pages):
